@@ -1,0 +1,22 @@
+May 21 
+What's done:
+run_cz_hmm_mle.r 
+Proves that with a small group of people, the mle works well to cluster 
+The trick is large population + few cliques 
+
+Need to do: 
+1, R HMM package is shit 
+2, Python BW algorithm works better than R HMM
+3, Design simulation test for both MLE and BW 
+	MLE test: 	
+	 	1, number of chains 
+	 	2, soft_diff 
+	 	3, num_ind / K 
+
+	BW test: 
+		1, length of seq 
+		2, init A and B 
+		3, num_ind / K 
+		4, debug viterbi 
+
+		
