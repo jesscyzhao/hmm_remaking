@@ -169,9 +169,10 @@ if __name__=="__main__":
         model = BWHMM()
 
         num_obs = 1000
-        num_ind = 6
-        sim_num_state = 3
-        sim_cluster = np.array([0, 1, 2, 0, 1, 2])
+        num_ind = 50
+        sim_num_state = 4
+        sim_cluster = np.array([1, 3, 3, 1, 0, 0, 1, 1, 0, 2, 0, 2, 1, 1, 2,3, 3, 1, 3, 3, 3, 2, 3,1, 3, 2, 0, 1, 0, 3,
+                                2, 3, 1 ,0 ,0, 3 ,1 ,2 ,1 ,0 ,1 ,3 ,2 ,2 ,2 ,3 ,2 ,2 ,0 ,0])
         Lambda = 0.6
         eps = 0.8
 
@@ -191,4 +192,5 @@ if __name__=="__main__":
         print(sim_B)
         print(est_B)
 
-        model.viterbi_decode(est_A, est_B, est_pi, sim_obs)
+        # best_path = model.viterbi_decode(est_A, est_B, est_pi, sim_obs)
+        # print(best_path)
