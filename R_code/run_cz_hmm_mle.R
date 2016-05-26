@@ -4,14 +4,12 @@ source('chunyi_r/working.mle.r')
 library(coda)
 
 num_ind = 50
-K = 4
+K = 10
 cluster = rep(c(0:(K-1)),num_ind)[1:num_ind]
 for (i in 1:100){
   prop_cluster = propose.cluster.1(cluster, K)
   cluster = prop_cluster
 }
-#cluster = c(rep(0, 25), rep(1, 25), rep(2, 25), rep(3, 25))
-cluster = c(rep(0, 3), rep(1, 3), rep(2, 3), rep(3, 3))
 pi = rep(1/K, K)
 lambda = 0.2
 eps = 0.01
@@ -37,3 +35,4 @@ summary(eps_mcmc)
 print(KL.divergence(cluster_trace[[100]], cluster, K)/(K*log(K)))
 
 
+ 

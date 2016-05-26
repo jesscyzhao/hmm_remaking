@@ -1,3 +1,37 @@
+library(partitions)
+
+
+list.all.partitions = function(num_ind, K){
+  all_part = restrictedparts(num_ind, K, include.zero = F)
+  print(paste(dim(all_part)[2], ' partitions in total'))
+  return(all_part)
+}
+
+propose.cluster.cz = function(all_partitions, num_ind){
+  
+  all_ind = seq(1, num_ind)
+  
+  this_partition_index = sample(1:dim(all_partitions)[2], 1)
+  
+  cur_partition = all_partitions[, this_partition_index]
+  
+  cur_pool = all_ind
+  cluster = rep(0, num_ind)
+  for (i in 1:dim(all_partitions)[1]){
+    cluster_size = cur_partition[i]
+    if (length(cur_pool) == 1){
+      this_cluster = cur_pool[1]
+    }
+    else{
+      this_cluster = sample(cur_pool, cluster_size)    
+    }
+    cluster[this_cluster] = i
+    cur_pool = setdiff(cur_pool, this_cluster)
+  }
+  return (cluster-1)
+}
+
+
 propose.cluster = function(x)
 {
     num.state =length(table(x))
@@ -129,14 +163,13 @@ sim.data = function(num.data,num.states,cluster,eps,lambda,pi)
 run.mle = function(data.set,num.states,num.ind,eps,lambda,pi,num.iter,thin, diff = 0.01){
 
 cluster = rep(c(0:(num.states-1)),num.ind)[1:num.ind]
-print('init cluster')
-print(cluster)
 obs.mat = create.obs.mat(num.states,cluster,eps)
 trans.mat = create.trans.mat(num.states,lambda)
 num.ind = length(cluster)
 
-curr.llk = sum(unlist(lapply(data.set,forward.better,num.states,obs.mat,trans.mat,pi)))
+all_partitions = list.all.partitions(num.ind, num.states)
 
+curr.llk = sum(unlist(lapply(data.set,forward.better,num.states,obs.mat,trans.mat,pi)))
 
 
 chain = rep(list(),num.iter/thin)
@@ -153,9 +186,13 @@ for( i in 1:num.iter)
     {	new.eps = runif(1);	}
     else if (test < 0.6)
     {	new.lambda = runif(1);	}
+    else if (test < 0.8)
+    {	
+      new.cluster = propose.cluster.cz(all_partitions, num.ind)
+    }
     else
-    {	new.cluster = propose.cluster.1(cluster,num.states)	
-      #new.cluster = cluster	
+    {
+      new.cluster = propose.cluster.1(cluster,num.states)	
     }
     
     curr.llk = sum(unlist(lapply(data.set,forward.better,num.states,obs.mat,trans.mat,pi)))
@@ -199,7 +236,6 @@ run.mle.with.cluster = function(data.set,num.states,num.ind,eps,lambda, cluster,
   num.ind = length(cluster)
   
   curr.llk = sum(unlist(lapply(data.set,forward.better,num.states,obs.mat,trans.mat,pi)))
-  
   
   
   chain = rep(list(),num.iter/thin)

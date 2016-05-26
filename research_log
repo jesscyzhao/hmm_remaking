@@ -20,3 +20,16 @@ Need to do:
 		4, debug viterbi 
 
 		
+May 23
+
+Sampling ideas 
+	1, sample integer partitions of total number of student N, with K cliques + brute force N choose summand_1, N - summand_1 choose summand_2, …. 
+
+—> pre-run all the partitions 
+-> each time, sample a partition, and then choose student according to the partition 
+
+May 26 
+
+Done: 
+  Implemented the sampling ideas. Allow the algorithm to make sudden huge jumps --> see sample_partition.r to see details 
+

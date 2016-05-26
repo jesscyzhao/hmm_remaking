@@ -145,6 +145,17 @@ class BWHMM:
 
         return best_path[::-1]
 
+D = {}
+def test_func(total, N, K): # number of partitions for Q and N with K or less as the largest part
+    if total > N*K or K <= 0 or total < K or (total == K and N>1):
+        return 0
+    if total == N*K:
+        return 1
+    if (total, N, K) not in D:
+        D[(total, N, K)] = sum(test_func(total-i*K, N-i, K-1) for i in range(N))
+    return D[(total, N, K)]
+
+
 if __name__=="__main__":
 
     vanila_case = False
