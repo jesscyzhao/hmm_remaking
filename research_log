@@ -32,4 +32,17 @@ May 26
 
 Done: 
   Implemented the sampling ideas. Allow the algorithm to make sudden huge jumps --> see sample_partition.r to see details 
+And committed 
 
+Need to do: 
+  Design simulation: for the same eps and lambda 
+    1, num_ind = [12, 40, 60]
+    2, K = [3, 5, 8, 10]
+    3, num_chains [1, 2, 3, 4, 5]
+    4, soft_diff [0.1, 0.3, 0.5]
+
+Finished writing the actual scripts: run_r_hmm_mle.py, run_cz_hmm_mle_shell.r, run_cz_hmm_mle.r to automate the simulation design. 
+
+    
+     
+    

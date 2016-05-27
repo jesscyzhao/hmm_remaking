@@ -1,6 +1,5 @@
 library(partitions)
 
-
 list.all.partitions = function(num_ind, K){
   all_part = restrictedparts(num_ind, K, include.zero = F)
   print(paste(dim(all_part)[2], ' partitions in total'))
@@ -176,9 +175,10 @@ chain = rep(list(),num.iter/thin)
 
 for( i in 1:num.iter)
 {
-    
+    if (i %% 1000 == 0) print(i)
+  
     test = runif(1);
-    
+  
     new.lambda = lambda;
     new.eps = eps;
     new.cluster = cluster;
@@ -217,12 +217,10 @@ for( i in 1:num.iter)
         chain[[i/thin]] = list(i = i,eps = eps,lambda = lambda,cluster = cluster, llk = curr.llk)
         # print(c(chain[[i/thin]]$llk,'lambda', chain[[i/thin]]$lambda, 'esp', chain[[i/thin]]$eps))
         this.clust = chain[[i/thin]]$cluster
-        print(c(chain[[i/thin]]$llk, chain[[i/thin]]$cluster))
+        #print(c(chain[[i/thin]]$llk, chain[[i/thin]]$cluster))
     }
     
 }
-
-#print(chain[[num.iter/thin]][[4]])
 
 return(chain)
 
@@ -244,7 +242,6 @@ run.mle.with.cluster = function(data.set,num.states,num.ind,eps,lambda, cluster,
   {
     
     test = runif(1);
-    
     new.lambda = lambda;
     new.eps = eps;
     new.cluster = cluster;
