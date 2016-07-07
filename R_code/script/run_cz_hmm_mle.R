@@ -5,7 +5,7 @@ source('chunyi_r/working.mle.r')
 library(coda)
 
 
-num.ind = 100
+num.ind = 50
 num.states = 10
 soft.diff = 0.5
 num.chain=10
