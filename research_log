@@ -43,6 +43,13 @@ Need to do:
 
 Finished writing the actual scripts: run_r_hmm_mle.py, run_cz_hmm_mle_shell.r, run_cz_hmm_mle.r to automate the simulation design. 
 
-    
+
+July 6
+
+1, Run run_cz_hmm_mle.r with num.ind = 12, 36, 60 with 10 chains and 3 states. All got perfect cluster back. 
+2, Clean up data using SQL 
+3, Take freshman data 
+4, Use Kmeans to confirm 
+
      
     
